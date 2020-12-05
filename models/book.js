@@ -5,7 +5,8 @@ const bookSchema = new Schema({
   book_title: String,
   book_year: String,
   description: String,
-  poster: String,
+  writer: String,
+  poster: String
 }, {
   timestamps: {
     createdAt: 'created_at',

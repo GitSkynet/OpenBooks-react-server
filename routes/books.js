@@ -11,7 +11,7 @@ const Book = require("../models/book")
         return res.json(books)
         .status(200) //  Return status 200, you mean; OK
       } catch (error) {
-        
+        console.log(error)
       }
     }
   );
@@ -48,10 +48,10 @@ const Book = require("../models/book")
 
   router.post("/upload/:id", async(req, res, next) => {
     try {
-    const { book_title, description, book_year, poster } = req.body.updatedBook;
+    const { book_title, description, writer, book_year, poster } = req.body.updatedBook;
     const bookId = req.params.id
     console.log('REQ.PARAMS.ID SERVER', bookId)
-    let books= await Book.findByIdAndUpdate(bookId, {book_title, description, book_year, poster }, {new: true})
+    let books= await Book.findByIdAndUpdate(bookId, {book_title, description, writer, book_year, poster }, {new: true})
     console.log(books)
       res.status(200).json(books)
     } catch (error) {
