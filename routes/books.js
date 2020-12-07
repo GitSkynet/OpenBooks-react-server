@@ -3,9 +3,9 @@ const router = express.Router();
 const createError = require("http-errors");
 const User = require("../models/user");
 const Book = require("../models/book")
-  
+
 //GET ALL BOOKS COLLECTION OF DATA BASE
-  router.get("/", async (req, res, next) => {
+  router.get("/mybooks", async (req, res, next) => {
       try {
         let books = await Book.find()
         return res.json(books)
@@ -37,7 +37,7 @@ const Book = require("../models/book")
 
   //UPLOAD ROUTES
 
-  router.get("/upload/:id", async(req, res, next) => {
+  router.get("/mybooks/upload/:id", async(req, res, next) => {
     try {
       let books = await Book.findById(req.params.id)
         res.status(200).json(books)
@@ -46,10 +46,10 @@ const Book = require("../models/book")
       }
       });
 
-  router.post("/upload/:id", async(req, res, next) => {
+  router.post("/mybooks/upload/:id", async(req, res, next) => {
     try {
     const { book_title, description, writer, book_year, poster } = req.body.updatedBook;
-    const bookId = req.params.id
+    const bookId = req.body.updatedBook
     console.log('REQ.PARAMS.ID SERVER', bookId)
     let books= await Book.findByIdAndUpdate(bookId, {book_title, description, writer, book_year, poster }, {new: true})
     console.log(books)
