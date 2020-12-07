@@ -7,7 +7,8 @@ const Book = require("../models/book")
 //GET ALL BOOKS COLLECTION OF DATA BASE
   router.get("/mybooks", async (req, res, next) => {
       try {
-        let books = await Book.find()
+        let perpage = 10;
+        let books = await Book.find().limit(perpage).skip(req.query.page*10)
         return res.json(books)
         .status(200) //  Return status 200, you mean; OK
       } catch (error) {
