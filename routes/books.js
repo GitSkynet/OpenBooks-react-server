@@ -3,6 +3,7 @@ const router = express.Router();
 const createError = require("http-errors");
 const User = require("../models/user");
 const Book = require("../models/book")
+const axios = require("axios")
 
 //GET ALL BOOKS COLLECTION OF DATA BASE
   router.get("/mybooks", async (req, res, next) => {
@@ -16,6 +17,24 @@ const Book = require("../models/book")
       }
     }
   );
+
+//   router.get("/api/v1/:name?", async (req, res, next) => {
+//     try {
+//       const page = req.query.page;
+//       const name = req.params.name;
+//       console.log(page, "<<<<<<<<<<<<<<<<")
+//       const perpage = 10;
+//       const count = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}&count_items=true`);
+//       const items = count.data.num_items;
+//       const res = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}`);
+//       console.log(res, "<<<<<<<<<<<<<<<<")
+//       return res.json(res)
+//       .status(200) //  Return status 200, you mean; OK
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
+// );
   
   // CREATE ROUTES
   router.post("/create", async (req, res, next)=> {
