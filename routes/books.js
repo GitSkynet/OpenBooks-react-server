@@ -26,7 +26,7 @@ const axios = require("axios")
 //       const perpage = 10;
 //       const count = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}&count_items=true`);
 //       const items = count.data.num_items;
-//       const res = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}`);
+//       const res = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}` + `?page=${page}`);
 //       console.log(res, "<<<<<<<<<<<<<<<<")
 //       return res.json(res)
 //       .status(200) //  Return status 200, you mean; OK
