@@ -18,18 +18,11 @@ const axios = require("axios")
     }
   );
 
-//   router.get("/api/v1/:name?", async (req, res, next) => {
+//   router.get("/api/v1/:name", async (req, res, next) => {
 //     try {
-//       const page = req.query.page;
 //       const name = req.params.name;
-//       console.log(page, "<<<<<<<<<<<<<<<<")
-//       const perpage = 10;
-//       const count = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}&count_items=true`);
-//       const items = count.data.num_items;
-//       const res = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}` + `?page=${page}`);
-//       console.log(res, "<<<<<<<<<<<<<<<<")
-//       return res.json(res)
-//       .status(200) //  Return status 200, you mean; OK
+//       const books = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}`);
+//       return books;
 //     } catch (error) {
 //       console.log(error)
 //     }     
@@ -57,7 +50,7 @@ const axios = require("axios")
 
   //UPLOAD ROUTES
 
-  router.get("/mybooks/upload/:id", async(req, res, next) => {
+  router.get("/upload/:id", async(req, res, next) => {
     try {
       let books = await Book.findById(req.params.id)
         res.status(200).json(books)
@@ -66,13 +59,14 @@ const axios = require("axios")
       }
       });
 
-  router.post("/mybooks/upload/:id", async(req, res, next) => {
+  router.post("/upload/:id", async(req, res, next) => {
     try {
     const { book_title, description, writer, book_year, poster } = req.body.updatedBook;
-    const bookId = req.body.updatedBook
-    console.log('REQ.PARAMS.ID SERVER', bookId)
+    console.log(req.body, "!!!!!!!!!!!!!!!!!!!!!")
+    const bookId = req.body.updatedBook;
+    console.log(bookId, "books data!!!!")
     let books= await Book.findByIdAndUpdate(bookId, {book_title, description, writer, book_year, poster }, {new: true})
-    console.log(books)
+    console.log(books, "books data!!!!")
       res.status(200).json(books)
     } catch (error) {
       console.log(error)

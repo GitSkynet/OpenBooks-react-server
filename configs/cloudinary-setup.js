@@ -10,7 +10,7 @@ cloudinary.config({
 
 var storage = cloudinaryStorage({
   cloudinary,
-  folder: 'books-posters', 
+  folder: 'books', 
   allowedFormats: ['jpg', 'png', 'jpeg', 'webp'],
   filename: function (req, res, cb) {
     let fileName = res.originalname.split(".");
