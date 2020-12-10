@@ -18,16 +18,17 @@ const axios = require("axios")
     }
   );
 
-//   router.get("/api/v1/:name", async (req, res, next) => {
-//     try {
-//       const name = req.params.name;
-//       const books = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}`);
-//       return books;
-//     } catch (error) {
-//       console.log(error)
-//     }     
-//   }
-// );
+  router.get("/api/v1/:name/:page", async (req, res, next) => {
+    try {
+      const name = req.params.name;
+      const page = req.params.page*10;
+      const books = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}&results_range=${page},10`);
+      return res.json(books.data);
+    } catch (error) {
+      console.log(error)
+    }     
+  }
+);
   
   // CREATE ROUTES
   router.post("/create", async (req, res, next)=> {
