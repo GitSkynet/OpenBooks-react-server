@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
-  book_title: String,
-  book_year: String,
+  title: String,
+  year: String,
   description: String,
   writer: String,
   poster: String

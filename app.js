@@ -19,7 +19,8 @@ mongoose
     keepAlive: true,
     useNewUrlParser: true,
   })
-  .then(() => console.log(`Connected to database`))
+  .then(() => console.log(`Connected to database ${process.env.DATABASE}`))
+  .then(()=> console.log(`Connected on port ${process.env.PORT}`))
   .catch((err) => console.error(err));
 
 // EXPRESS SERVER INSTANCE

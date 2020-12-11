@@ -5,7 +5,9 @@ const User = require("../models/user");
 const Book = require("../models/book")
 const axios = require("axios")
 
-//GET ALL BOOKS COLLECTION OF DATA BASE
+//ROUTES GET BOOKS
+
+//Get books from our DataBase
   router.get("/mybooks", async (req, res, next) => {
       try {
         let perpage = 10;
@@ -15,20 +17,21 @@ const axios = require("axios")
       } catch (error) {
         console.log(error)
       }
-    }
-  );
+  });
 
+  //Get books from API OpenLibra
   router.get("/api/v1/:name/:page", async (req, res, next) => {
+    const name = req.params.name;
+    const page = req.params.page*10;
     try {
-      const name = req.params.name;
-      const page = req.params.page*10;
       const books = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}&results_range=${page},10`);
       return res.json(books.data);
     } catch (error) {
       console.log(error)
     }     
-  }
-);
+  });
+
+//END ROUTES GET BOOKS
   
   // CREATE ROUTES
   router.post("/create", async (req, res, next)=> {
@@ -54,20 +57,19 @@ const axios = require("axios")
   router.get("/upload/:id", async(req, res, next) => {
     try {
       let books = await Book.findById(req.params.id)
-        res.status(200).json(books)
-      } catch (error) {
-        console.log(error)
+      res.status(200).json(books)
+    } catch (error) {
+      console.log(error)
       }
-      });
+  });
 
   router.post("/upload/:id", async(req, res, next) => {
     try {
-    const { book_title, description, writer, book_year, poster } = req.body.updatedBook;
-    console.log(req.body, "!!!!!!!!!!!!!!!!!!!!!")
-    const bookId = req.body.updatedBook;
+    const { title, description, writer, year, poster } = req.body.updatedBook;
+    const bookId = req.params.id;
     console.log(bookId, "books data!!!!")
-    let books= await Book.findByIdAndUpdate(bookId, {book_title, description, writer, book_year, poster }, {new: true})
-    console.log(books, "books data!!!!")
+    let books = await Book.findByIdAndUpdate(bookId, {title, description, writer, year, poster }, {new: true});
+    console.log(books, "books UPDATE!!!!")
       res.status(200).json(books)
     } catch (error) {
       console.log(error)
