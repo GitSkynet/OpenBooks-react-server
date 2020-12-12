@@ -5,9 +5,13 @@ const User = require("../models/user");
 const Book = require("../models/book")
 const axios = require("axios")
 
-//ROUTES GET BOOKS
+//<<<<<<<<<<<<<<<<<<<<<<<-------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//All routes here are ordered by APIS use. First, the routes of my database. On second position,
+//the Routes of the API OpenLibra, and last; the Google API Routes
 
-//Get books from our DataBase
+//<<<<<<<<<<<<<<<<<<<<<<<<ROUTES MY DATABASE>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+//GET books
   router.get("/mybooks", async (req, res, next) => {
       try {
         let perpage = 10;
@@ -18,32 +22,8 @@ const axios = require("axios")
         console.log(error)
       }
   });
-
-  //Get books from API OpenLibra
-  router.get("/api/v1/:name/:page", async (req, res, next) => {
-    const name = req.params.name;
-    const page = req.params.page*10;
-    try {
-      const books = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}&results_range=${page},10`);
-      return res.json(books.data);
-    } catch (error) {
-      console.log(error)
-    }     
-  });
-
-  router.get("/google-books", async (req, res, next) => {
-    try {
-      const books = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=carlos+ruiz+zafon&key=AIzaSyBzD61cSMcd6Si4XKfkchWaHRiXrmlFGFU`);
-      console.log(books, "SERVER BOOKS");
-      return res.json(books.data);
-    } catch (error) {
-      console.log(error)
-    }     
-  });
-
-  //END ROUTES GET BOOKS
   
-  // CREATE ROUTES
+  // CREATE book
   router.post("/create", async (req, res, next)=> {
     Book.create(req.body)
     .then( newBook => {
@@ -52,7 +32,7 @@ const axios = require("axios")
     .catch( err => next(err) )
   })
 
-  // GET DETAILS ROUTE
+  //DETAILS route
   router.get("/details/:id", async(req, res, next) => {
     try {
       let books = await Book.findById(req.params.id)
@@ -62,8 +42,7 @@ const axios = require("axios")
       }
   });
 
-  //UPLOAD ROUTES
-
+  //GET UPLOAD route
   router.get("/upload/:id", async(req, res, next) => {
     try {
       let books = await Book.findById(req.params.id)
@@ -73,6 +52,7 @@ const axios = require("axios")
       }
   });
 
+  //POST UPLOAD route
   router.post("/upload/:id", async(req, res, next) => {
     try {
     const { title, description, writer, year, poster } = req.body.updatedBook;
@@ -86,15 +66,61 @@ const axios = require("axios")
     }
   });
 
-    //DELETE MOVIE
-
+  //DELETE BOOK route
     router.post('/delete/:id', async (req, res, next) =>{
       try {
-        let deleteMovie = await Book.findByIdAndRemove(req.params.id )
+        let deleteBook = await Book.findByIdAndRemove(req.params.id )
+        console.log("Libro eliminado:", deleteBook )
         res.status(200).json("Borrado correctamente")
       } catch (error) {
-        console.log('Error eliminando libro, prueba en unos minutos', error);
+        console.log('Error eliminando libro:', error);
       }
     });
+  //<<<<<<<<<<<<<<<<<<<<<<<<END ROUTES MY DATABASE>>>>>>>>>>>>>>>>>>>>>>>>>
 
+  //<<<<<<<<<<<<<<<<<<<<<<<-------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  //<<<<<<<<<<<<<<<<<<<<<<<<ROUTES OPENLIBRA API>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  //Get books OpenLibra
+  router.get("/openlibra/:name/:page", async (req, res, next) => {
+    const name = req.params.name;
+    const page = req.params.page*10;
+    try {
+      const books = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}&results_range=${page},10`);
+      return res.json(books.data);
+    } catch (error) {
+      console.log(error)
+    }     
+  });
+
+  //<<<<<<<<<<<<<<<<<<<<<<<<END ROUTES OPENLIBRA API>>>>>>>>>>>>>>>>>>>>>>>
+
+  //<<<<<<<<<<<<<<<<<<<<<<<-------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  //<<<<<<<<<<<<<<<<<<<<<<<<ROUTES GOOGLE BOOKS API>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  router.get("/google-books", async (req, res, next) => {
+    try {
+      const books = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=carlos+ruiz+zafon&key=AIzaSyBzD61cSMcd6Si4XKfkchWaHRiXrmlFGFU`);
+      return res.json(books.data);
+    } catch (error) {
+      console.log(error)
+    }     
+  });
+
+  router.get("/google-books/search?q=:query", async (req, res, next) => {
+    const query = req.params.query;
+    console.log(req, "AQUIIIIII")
+    try {
+      const books = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=AIzaSyBzD61cSMcd6Si4XKfkchWaHRiXrmlFGFU`);
+      console.log(res, "SEARCH FUNCTION SERVER");
+      return res.json(books.data);
+    }catch (error) {
+      console.log(error);
+    }
+  })
+
+  //<<<<<<<<<<<<<<<<<<<<<<<<END ROUTES GOOGLE BOOKS API>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  
+  //<<<<<<<<<<<<<<<<<<<<<<<-------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>
 module.exports = router;
