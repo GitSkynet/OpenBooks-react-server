@@ -31,7 +31,17 @@ const axios = require("axios")
     }     
   });
 
-//END ROUTES GET BOOKS
+  router.get("/google-books", async (req, res, next) => {
+    try {
+      const books = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=carlos+ruiz+zafon&key=AIzaSyBzD61cSMcd6Si4XKfkchWaHRiXrmlFGFU`);
+      console.log(books, "SERVER BOOKS");
+      return res.json(books.data);
+    } catch (error) {
+      console.log(error)
+    }     
+  });
+
+  //END ROUTES GET BOOKS
   
   // CREATE ROUTES
   router.post("/create", async (req, res, next)=> {
