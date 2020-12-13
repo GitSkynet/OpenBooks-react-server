@@ -6,8 +6,6 @@ const Book = require("../models/book")
 const axios = require("axios")
 
 //<<<<<<<<<<<<<<<<<<<<<<<-------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//All routes here are ordered by APIS use. First, the routes of my database. On second position,
-//the Routes of the API OpenLibra, and last; the Google API Routes
 
 //<<<<<<<<<<<<<<<<<<<<<<<<ROUTES MY DATABASE>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -87,7 +85,7 @@ const axios = require("axios")
     const name = req.params.name;
     const page = req.params.page*10;
     try {
-      const books = await axios.get(`https://www.etnassoft.com/api/v1/get/?category=${name}&results_range=${page},10`);
+      const books = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + "&results_range=" + `${page},10`);
       return res.json(books.data);
     } catch (error) {
       console.log(error)
@@ -108,12 +106,11 @@ const axios = require("axios")
     }     
   });
 
-  router.get("/google-books/search?q=:query", async (req, res, next) => {
+  router.get("/google-books/search/:query", async (req, res, next) => {
     const query = req.params.query;
     console.log(req, "AQUIIIIII")
     try {
-      const books = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=AIzaSyBzD61cSMcd6Si4XKfkchWaHRiXrmlFGFU`);
-      console.log(res, "SEARCH FUNCTION SERVER");
+      const books = await axios.get("https://www.googleapis.com/books/v1/volumes?q=" + `${query}` + "&key=AIzaSyBzD61cSMcd6Si4XKfkchWaHRiXrmlFGFU&maxResults=40");
       return res.json(books.data);
     }catch (error) {
       console.log(error);
