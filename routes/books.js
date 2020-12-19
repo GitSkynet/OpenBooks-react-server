@@ -10,7 +10,7 @@ const axios = require("axios")
 //<<<<<<<<<<<<<<<<<<<<<<<<ROUTES MY DATABASE>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 //GET books
-  router.get("/mybooks", async (req, res, next) => {
+  router.get("/ourbooks", async (req, res, next) => {
       try {
         let perpage = 10;
         let books = await Book.find().limit(perpage).skip(req.query.page*10)
@@ -80,24 +80,23 @@ const axios = require("axios")
 
   //<<<<<<<<<<<<<<<<<<<<<<<<ROUTES OPENLIBRA API>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-  //Get books OpenLibra
-  router.get("/openlibra/:name/:page", async (req, res, next) => {
-    const name = req.params.name;
-    const page = req.params.page*10;
-    try {
-      const books = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + "&results_range=" + `${page},10`);
-      return res.json(books.data);
-    } catch (error) {
-      console.log(error)
-    }     
-  });
+ //Get books OpenLibra
+ router.get("/openlibra/:name/:page", async (req, res, next) => {
+  const name = req.params.name;
+  const page = req.params.page*10;
+  try {
+    const books = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + "&results_range=" + `${page},10`);
+    return res.json(books.data);
+  } catch (error) {
+    console.log(error)
+  }     
+});
 
   //Search over OpenLibra API
-  router.get("/openlibra/:name", async (req, res, next) => {
+  router.get("/openlibra/search/:name", async (req, res, next) => {
     const name = req.params.name;
     try {
       const books = await axios.get(`https://www.etnassoft.com/api/v1/get/?keyword=${name}`);
-      console.log(books.data, "<<<<<<<<")
       return res.json(books.data);
     }catch (error) {
       console.log(error);
