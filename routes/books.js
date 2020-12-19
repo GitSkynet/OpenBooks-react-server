@@ -92,6 +92,18 @@ const axios = require("axios")
     }     
   });
 
+  //Search over OpenLibra API
+  router.get("/openlibra/:name", async (req, res, next) => {
+    const name = req.params.name;
+    try {
+      const books = await axios.get(`https://www.etnassoft.com/api/v1/get/?keyword=${name}`);
+      console.log(books.data, "<<<<<<<<")
+      return res.json(books.data);
+    }catch (error) {
+      console.log(error);
+    };
+  });
+
   //<<<<<<<<<<<<<<<<<<<<<<<<END ROUTES OPENLIBRA API>>>>>>>>>>>>>>>>>>>>>>>
 
   //<<<<<<<<<<<<<<<<<<<<<<<-------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>
