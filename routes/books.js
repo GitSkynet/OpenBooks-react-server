@@ -103,21 +103,35 @@ const axios = require("axios")
     };
   });
 
-  //<<<<<<<<<<<<<<<<<<<<<<<<END ROUTES OPENLIBRA API>>>>>>>>>>>>>>>>>>>>>>>
-
-  //<<<<<<<<<<<<<<<<<<<<<<<-------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-  //<<<<<<<<<<<<<<<<<<<<<<<<ROUTES GOOGLE BOOKS API>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  router.get("/google-books", async (req, res, next) => {
+  //Get Categories from API
+  router.get("/openlibra", async (req, res, next)=> {
     try {
-      const books = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=carlos+ruiz+zafon&key=AIzaSyBzD61cSMcd6Si4XKfkchWaHRiXrmlFGFU`);
+      const resp = await axios.get("https://www.etnassoft.com/api/v1/get/?get_categories=all");
+      console.log(resp.data,"RES!!!!!!!!!!!!!!!!!")
+      return res.json(resp.data);
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
+  //<<<<<<<<<<<<<<<<<<<<<<<<END ROUTES OPENLIBRA API>>>>>>>>>>>>>>>>>>>>>>>
+  //<<<<<<<<<<<<<<<<<<<<<<<-------------------------->>>>>>>>>>>>>>>>>>>>>>
+
+  //<<<<<<<<<<<<<<<<<<<<<<<------------------------>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  //<<<<<<<<<<<<<<<<<<<<<<<<ROUTES GOOGLE BOOKS API>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  //Get Google-Books API {Home}
+  router.get("/googlebooks", async (req, res, next) => {
+    try {
+      const books = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=novel&subject:novel&filter=free-ebooks&key=AIzaSyBzD61cSMcd6Si4XKfkchWaHRiXrmlFGFU`);
       return res.json(books.data);
     } catch (error) {
       console.log(error)
     }     
   });
 
-  router.get("/google-books/search/:query", async (req, res, next) => {
+  //Search over Google-Books API
+  router.get("/googlebooks/search/:query", async (req, res, next) => {
     const query = req.params.query;
     console.log(req, "AQUIIIIII")
     try {
