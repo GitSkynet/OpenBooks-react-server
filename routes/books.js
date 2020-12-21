@@ -85,7 +85,9 @@ const axios = require("axios")
   const name = req.params.name;
   const page = req.params.page*10;
   try {
-    const books = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + "&results_range=" + `${page},10`);
+    const counter = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + `&count_items=true`);
+    const count = counter.data.num_items;
+    const books = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + `&num_items=${count}` + `&results_range=${page},10`);
     return res.json(books.data);
   } catch (error) {
     console.log(error)
