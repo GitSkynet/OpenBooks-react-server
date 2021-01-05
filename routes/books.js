@@ -84,11 +84,12 @@ const axios = require("axios")
  router.get("/openlibra/:name/:page", async (req, res, next) => {
   const name = req.params.name;
   const page = req.params.page*10;
+  const counter = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + `&count_items=true`);
+  const count = counter.data.num_items;
   try {
-    const counter = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + `&count_items=true`);
-    const count = counter.data.num_items;
     const books = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + `&num_items=${count}` + `&results_range=${page},10`);
-    return res.json(books.data);
+    return res.json(books.data)
+    .status(200) //  Return status 200, you mean; OK
   } catch (error) {
     console.log(error)
   }     
@@ -119,6 +120,7 @@ const axios = require("axios")
   //<<<<<<<<<<<<<<<<<<<<<<<<END ROUTES OPENLIBRA API>>>>>>>>>>>>>>>>>>>>>>>
   //<<<<<<<<<<<<<<<<<<<<<<<-------------------------->>>>>>>>>>>>>>>>>>>>>>
 
+  
   //<<<<<<<<<<<<<<<<<<<<<<<------------------------>>>>>>>>>>>>>>>>>>>>>>>>>>>
   //<<<<<<<<<<<<<<<<<<<<<<<<ROUTES GOOGLE BOOKS API>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -126,7 +128,8 @@ const axios = require("axios")
   router.get("/googlebooks", async (req, res, next) => {
     try {
       const books = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=novel&subject:novel&filter=free-ebooks&key=AIzaSyBzD61cSMcd6Si4XKfkchWaHRiXrmlFGFU`);
-      return res.json(books.data);
+      return res.json(books.data)
+      .status(200) //  Return status 200, you mean; OK
     } catch (error) {
       console.log(error)
     }     
