@@ -84,9 +84,9 @@ const axios = require("axios")
  router.get("/openlibra/:name/:page", async (req, res, next) => {
   const name = req.params.name;
   const page = req.params.page*10;
-  const counter = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + `&count_items=true`);
-  const count = counter.data.num_items;
   try {
+    const counter = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + `&count_items=true`);
+    const count = counter.data.num_items;
     const books = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + `&num_items=${count}` + `&results_range=${page},10`);
     return res.json(books.data)
     .status(200) //  Return status 200, you mean; OK
