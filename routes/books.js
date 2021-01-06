@@ -76,49 +76,7 @@ const axios = require("axios")
     });
   //<<<<<<<<<<<<<<<<<<<<<<<<END ROUTES MY DATABASE>>>>>>>>>>>>>>>>>>>>>>>>>
 
-  //<<<<<<<<<<<<<<<<<<<<<<<-------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-  //<<<<<<<<<<<<<<<<<<<<<<<<ROUTES OPENLIBRA API>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
- //Get books OpenLibra
- router.get("/openlibra/:name/:page", async (req, res, next) => {
-  const name = req.params.name;
-  const page = req.params.page*10;
-  try {
-    const counter = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + `&count_items=true`);
-    const count = counter.data.num_items;
-    const books = await axios.get("https://www.etnassoft.com/api/v1/get/?category="+ `${name}` + `&num_items=${count}` + `&results_range=${page},10`);
-    return res.json(books.data)
-    .status(200) //  Return status 200, you mean; OK
-  } catch (error) {
-    console.log(error)
-  }     
-});
-
-  //Search over OpenLibra API
-  router.get("/openlibra/search/:name", async (req, res, next) => {
-    const name = req.params.name;
-    try {
-      const books = await axios.get(`https://www.etnassoft.com/api/v1/get/?keyword=${name}`);
-      return res.json(books.data);
-    }catch (error) {
-      console.log(error);
-    };
-  });
-
-  //Get Categories from API
-  router.get("/openlibra", async (req, res, next)=> {
-    try {
-      const resp = await axios.get("https://www.etnassoft.com/api/v1/get/?get_categories=all");
-      console.log(resp.data,"RES!!!!!!!!!!!!!!!!!")
-      return res.json(resp.data);
-    } catch (error) {
-      console.log(error)
-    }
-  })
-
-  //<<<<<<<<<<<<<<<<<<<<<<<<END ROUTES OPENLIBRA API>>>>>>>>>>>>>>>>>>>>>>>
-  //<<<<<<<<<<<<<<<<<<<<<<<-------------------------->>>>>>>>>>>>>>>>>>>>>>
+ 
 
   
   //<<<<<<<<<<<<<<<<<<<<<<<------------------------>>>>>>>>>>>>>>>>>>>>>>>>>>>
