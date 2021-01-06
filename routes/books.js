@@ -74,38 +74,7 @@ const axios = require("axios")
         console.log('Error eliminando libro:', error);
       }
     });
+    
   //<<<<<<<<<<<<<<<<<<<<<<<<END ROUTES MY DATABASE>>>>>>>>>>>>>>>>>>>>>>>>>
 
- 
-
-  
-  //<<<<<<<<<<<<<<<<<<<<<<<------------------------>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  //<<<<<<<<<<<<<<<<<<<<<<<<ROUTES GOOGLE BOOKS API>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-  //Get Google-Books API {Home}
-  router.get("/googlebooks", async (req, res, next) => {
-    try {
-      const books = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=novel&subject:novel&filter=free-ebooks&key=AIzaSyBzD61cSMcd6Si4XKfkchWaHRiXrmlFGFU`);
-      return res.json(books.data)
-      .status(200) //  Return status 200, you mean; OK
-    } catch (error) {
-      console.log(error)
-    }     
-  });
-
-  //Search over Google-Books API
-  router.get("/googlebooks/search/:query", async (req, res, next) => {
-    const query = req.params.query;
-    console.log(req, "AQUIIIIII")
-    try {
-      const books = await axios.get("https://www.googleapis.com/books/v1/volumes?q=" + `${query}` + "&key=AIzaSyBzD61cSMcd6Si4XKfkchWaHRiXrmlFGFU&maxResults=40");
-      return res.json(books.data);
-    }catch (error) {
-      console.log(error);
-    }
-  })
-
-  //<<<<<<<<<<<<<<<<<<<<<<<<END ROUTES GOOGLE BOOKS API>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  
-  //<<<<<<<<<<<<<<<<<<<<<<<-------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>
 module.exports = router;
