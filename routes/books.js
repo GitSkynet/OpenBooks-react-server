@@ -76,5 +76,11 @@ const axios = require("axios")
     });
     
   //<<<<<<<<<<<<<<<<<<<<<<<<END ROUTES MY DATABASE>>>>>>>>>>>>>>>>>>>>>>>>>
+  
+  // --------> ROUTES FAVOURITES <-------
+
+ 
+
+
 
 module.exports = router;
