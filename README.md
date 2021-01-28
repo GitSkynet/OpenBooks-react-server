@@ -39,7 +39,7 @@ _Para ejecutar el servidor:_
 npm run dev
 ```
 
-_Si abres tu navegador vas a la dirección http://localhost:4000 para ver el proyecto en funcionamiento_
+_Ya tenemos a nuestro servidor en http://localhost:4000 en marcha escuchando y soncronizado con la base de datos_
 
 ## Realizando el deploy en Heroku ⚙️
 
@@ -59,7 +59,7 @@ git commit -m"myCommit"
 ```
 _Hacemos el push a Heroku_
 ```
-git git push heroku master"
+git push heroku master"
 ```
 
 ### Configurando Heroku 🔩
