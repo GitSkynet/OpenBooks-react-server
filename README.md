@@ -2,12 +2,12 @@
 
 Servidor de OpenBooks
 * MongoDB 
-* Express y Node para Backend
-* Estilo propio con algo de React Bootstrap
+* Express
+* Node 
 
 ## Comenzando 🚀
 ### Instalación 🔧
-Para poder ver y probar este proyecto en tu ordenador local, haz Fork tanto de este repositorio como el repositorio del cliente **(enlace repo client openbooks V2)**
+Para poder ver y probar este proyecto en tu ordenador local, haz Fork tanto de este repositorio como el [repositorio del cliente](https://github.com/GitSkynet/OpenBooks-react-client)
 
 Antes de poner el servidor en marcha, debemos crear un archivo y descargar las pedendencias.
 Crea  un **archivo .env** en el directorio raíz, donde añadiremos las siguientes keys:
@@ -39,7 +39,7 @@ _Para ejecutar el servidor:_
 npm run dev
 ```
 
-_Ya tenemos a nuestro servidor en http://localhost:4000 en marcha escuchando y soncronizado con la base de datos_
+_Ya tenemos nuestro backend escuchando en http://localhost:4000 y conectado a mongoDB_
 
 ## Realizando el deploy en Heroku ⚙️
 

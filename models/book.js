@@ -16,13 +16,4 @@ const bookSchema = new Schema({
 
 const Book = mongoose.model('Book', bookSchema);
 
-createBook = async () =>{
-    const book_title = "La sombra del viento"
-    const book_year = "2002"
-    const description = "Una descripción random para probar"
-    await Book.create({ book_title, book_year, description})
-    console.log('BOOK TITLE', book_title)
-} 
-
-
 module.exports = Book;
