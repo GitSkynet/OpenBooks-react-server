@@ -5,7 +5,7 @@ Servidor de OpenBooks
 * Express
 * Node 
 
-## Comenzando 🚀
+## Comenzando :unicorn: 🚀
 ### Instalación 🔧
 Para poder ver y probar este proyecto en tu ordenador local, haz Fork tanto de este repositorio como el [repositorio del cliente](https://github.com/GitSkynet/OpenBooks-react-client)
 
